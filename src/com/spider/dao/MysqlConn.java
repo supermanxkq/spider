@@ -1,4 +1,4 @@
-package com.marryme.dao;
+package com.spider.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

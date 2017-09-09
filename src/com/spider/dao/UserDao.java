@@ -1,9 +1,9 @@
-package com.marryme.dao;
+package com.spider.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import com.marryme.bean.User;
+import com.spider.bean.User;
 
 public class UserDao {
 

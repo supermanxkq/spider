@@ -1,4 +1,4 @@
-package com.marryme.main;
+package com.spider.main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import com.marryme.bean.User;
-import com.marryme.dao.UserDao;
-import com.marryme.util.Utils;
+import com.spider.bean.User;
+import com.spider.dao.UserDao;
+import com.spider.util.Utils;
 
 public class SpiderRun {
 	// 保存总条数
@@ -27,9 +27,10 @@ public class SpiderRun {
 			System.err.println("开始读取第" + (h + 1) + "页的数据。。。。。。。");
 			// 获取要解析的html
 			Document doc = t.getDocument("http://www.kaikaidai.com/Lend/Black.aspx", h);
+
 			// 获取数据集合
 			List<Elements> entityList = t.queryEntityList(doc);
-			// 将数据存入数据库
+			// // 将数据存入数据库
 			t.saveEntity(entityList);
 			System.err.println("第" + (h + 1) + "页的数据保存完毕！！！。。。。。。。");
 		}
@@ -116,7 +117,13 @@ public class SpiderRun {
 			Connection con = Jsoup.connect(url);
 			con.data("__EVENTTARGET", "rpMessage");
 			con.data("__EVENTARGUMENT", "pager$" + currentPage);
-			con.timeout(10000);// 设置请求超时时间
+			// 请求头设置，特别是cookie设置
+			con.header("Accept",
+					"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+			con.header("Content-Type", "application/x-www-form-urlencoded");
+			con.header("User-Agent",
+					"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36");
+			con.timeout(50000);// 设置请求超时时间
 			Document doc = con.post();
 			return doc;
 		} catch (IOException e) {

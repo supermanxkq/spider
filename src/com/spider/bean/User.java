@@ -1,4 +1,4 @@
-package com.marryme.bean;
+package com.spider.bean;
 
 import java.math.BigDecimal;
 
